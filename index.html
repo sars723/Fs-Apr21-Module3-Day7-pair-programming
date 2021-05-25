@@ -44,7 +44,10 @@
     ></script>
 
     <script>
+      //reference of parent container
       const parent = document.getElementById("container");
+
+      //create a dropdown
       const createDropdown = () => {
         let values = ["name", "user name", "email"];
         let select = document.createElement("select");
@@ -64,6 +67,8 @@
         console.log(select.value);
         parent.appendChild(label).appendChild(select);
       };
+
+      //create input
       const createInput = () => {
         let input = document.createElement("input");
         input.setAttribute("type", "text");
@@ -74,6 +79,7 @@
         parent.appendChild(input);
       };
 
+      //create user list
       const createList = (user) => {
         let ul = document.createElement("ul");
         for (const usr of user) {
@@ -95,9 +101,10 @@
 
         parent.appendChild(ul);
       };
-      const inputValue = document.getElementById("select");
-      console.log(inputValue);
-      const filter = (user, inputValue) => {};
+
+      //filter the data according to user input value and user selection dropdown value
+      const filter = (user, inputValue, selectValue) => {};
+
       window.onload = () => {
         fetch("https://jsonplaceholder.typicode.com/users ")
           .then((response) => response.json())
@@ -106,6 +113,10 @@
             createDropdown();
             createInput();
             createList(user);
+            let input = document.getElementsByTagName("input")[0];
+            let select = document.getElementsByTagName("select")[0];
+            console.log(select);
+            filter(user, input.value, select.value);
           })
           .catch((error) => console.log(error));
       };
