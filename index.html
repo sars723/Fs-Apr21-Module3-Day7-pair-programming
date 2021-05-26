@@ -45,6 +45,7 @@
 
     <script>
       //reference of parent container
+      let userArr = [];
       const parent = document.getElementById("container");
 
       //create a dropdown
@@ -103,20 +104,65 @@
       };
 
       //filter the data according to user input value and user selection dropdown value
-      const filter = (user, inputValue, selectValue) => {};
+      const filter = () => {
+        let input = document.getElementsByTagName("input")[0];
+        let select = document.getElementsByTagName("select")[0];
+        /*  console.log(input.value); */
+        let filter = input.value.toLowerCase();
+        let li = document.getElementsByTagName("li");
+        /*  console.log(userArr); */
+
+        if (select.value === "name") {
+          for (let i = 0; i < userArr.length; i++) {
+            /* console.log(usr.name.toLowerCase()); */
+            if (
+              userArr[i].name.toLowerCase().includes(filter) &&
+              input.value.length > 3
+            ) {
+              /* console.log(userArr[i].name); */
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+          }
+        } else if (select.value === "user name") {
+          for (let i = 0; i < userArr.length; i++) {
+            /* console.log(usr.name.toLowerCase()); */
+            if (
+              userArr[i].username.toLowerCase().includes(filter) &&
+              input.value.length > 3
+            ) {
+              /* console.log(userArr[i].username); */
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+          }
+        } else if (select.value === "email") {
+          for (let i = 0; i < userArr.length; i++) {
+            /* console.log(usr.name.toLowerCase()); */
+            if (
+              userArr[i].email.toLowerCase().includes(filter) &&
+              input.value.length > 3
+            ) {
+              /*  console.log(userArr[i].email); */
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+          }
+        }
+      };
 
       window.onload = () => {
         fetch("https://jsonplaceholder.typicode.com/users ")
           .then((response) => response.json())
           .then((user) => {
-            console.log(user);
+            console.log(user[0].name);
+            userArr = user;
             createDropdown();
             createInput();
             createList(user);
-            let input = document.getElementsByTagName("input")[0];
-            let select = document.getElementsByTagName("select")[0];
-            console.log(select);
-            filter(user, input.value, select.value);
           })
           .catch((error) => console.log(error));
       };
