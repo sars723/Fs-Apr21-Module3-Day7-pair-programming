@@ -166,8 +166,10 @@
         /*  nameArr.sort(); */
         console.log(nameArr);
         let ul = document.createElement("ul");
+        ul.setAttribute("id", "ul-name-list");
         nameArr.forEach((name) => {
           let li = document.createElement("li");
+          li.setAttribute("class", "li-name-list");
           li.innerText = name;
           ul.appendChild(li);
         });
@@ -195,21 +197,32 @@
 
       const createSortButton = () => {
         let sortBtn = document.createElement("button");
-        sortBtn.innerText = "sort";
+        sortBtn.innerText = "sort asending";
         sortBtn.setAttribute("onclick", "sort()");
+        sortBtn.setAttribute("id", "sort-btn");
         parent.appendChild(sortBtn);
       };
       const sort = () => {
+        let sortbtn = document.getElementById("sort-btn");
+        let li = document.getElementsByClassName("li-name-list");
         let nameArr = userArr.map((usr) => usr.name);
-        nameArr.sort();
-        console.log(nameArr);
-        let ul = document.createElement("ul");
-        nameArr.forEach((name) => {
-          let li = document.createElement("li");
-          li.innerText = name;
-          ul.appendChild(li);
-        });
-        parent.appendChild(ul);
+        if (sortbtn.innerText === "sort asending") {
+          nameArr.sort();
+          console.log(nameArr);
+
+          console.log(li);
+          for (let i = 0; i < nameArr.length; i++) {
+            li[i].innerText = nameArr[i];
+          }
+          sortbtn.innerText = "sort decending";
+        } else {
+          nameArr.sort();
+          nameArr.reverse();
+          for (let i = 0; i < nameArr.length; i++) {
+            li[i].innerText = nameArr[i];
+          }
+          sortbtn.innerText = "sort acending";
+        }
       };
 
       window.onload = () => {
