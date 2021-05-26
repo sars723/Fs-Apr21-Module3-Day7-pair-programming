@@ -153,6 +153,7 @@
           }
         }
       };
+
       const createNameExtractButton = () => {
         let btnExtractName = document.createElement("button");
         btnExtractName.innerText = "Extract Name";
@@ -162,6 +163,45 @@
 
       const extractName = () => {
         let nameArr = userArr.map((usr) => usr.name);
+        /*  nameArr.sort(); */
+        console.log(nameArr);
+        let ul = document.createElement("ul");
+        nameArr.forEach((name) => {
+          let li = document.createElement("li");
+          li.innerText = name;
+          ul.appendChild(li);
+        });
+        parent.appendChild(ul);
+      };
+
+      const arrAddressAsString = () => {
+        const address = {
+          street: "Victor Plains",
+          suite: "Suite 879",
+          city: "Wisokyburgh",
+          zipcode: "90566-7771",
+          geo: {
+            lat: "-43.9509",
+            lng: "-34.4618",
+          },
+        };
+
+        /* let addressArr=address.map(key=>) */
+        const { street, suite, city, zipcode, geo: lat, geo: lng } = address;
+        console.log(street, suite, city, zipcode, lat, lng);
+        const addressValues = Object.values(address);
+        console.log(addressValues);
+      };
+
+      const createSortButton = () => {
+        let sortBtn = document.createElement("button");
+        sortBtn.innerText = "sort";
+        sortBtn.setAttribute("onclick", "sort()");
+        parent.appendChild(sortBtn);
+      };
+      const sort = () => {
+        let nameArr = userArr.map((usr) => usr.name);
+        nameArr.sort();
         console.log(nameArr);
         let ul = document.createElement("ul");
         nameArr.forEach((name) => {
@@ -182,6 +222,8 @@
             createInput();
             createList(user);
             createNameExtractButton();
+            arrAddressAsString();
+            createSortButton();
           })
           .catch((error) => console.log(error));
       };
