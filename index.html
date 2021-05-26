@@ -153,6 +153,24 @@
           }
         }
       };
+      const createNameExtractButton = () => {
+        let btnExtractName = document.createElement("button");
+        btnExtractName.innerText = "Extract Name";
+        btnExtractName.setAttribute("onclick", "extractName()");
+        parent.appendChild(btnExtractName);
+      };
+
+      const extractName = () => {
+        let nameArr = userArr.map((usr) => usr.name);
+        console.log(nameArr);
+        let ul = document.createElement("ul");
+        nameArr.forEach((name) => {
+          let li = document.createElement("li");
+          li.innerText = name;
+          ul.appendChild(li);
+        });
+        parent.appendChild(ul);
+      };
 
       window.onload = () => {
         fetch("https://jsonplaceholder.typicode.com/users ")
@@ -163,6 +181,7 @@
             createDropdown();
             createInput();
             createList(user);
+            createNameExtractButton();
           })
           .catch((error) => console.log(error));
       };
